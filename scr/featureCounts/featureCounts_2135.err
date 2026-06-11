@@ -1,0 +1,179 @@
+
+Warning: Unknown annotation format: GFF. GTF format is used.
+
+
+        ==========     _____ _    _ ____  _____  ______          _____  
+        =====         / ____| |  | |  _ \|  __ \|  ____|   /\   |  __ \ 
+          =====      | (___ | |  | | |_) | |__) | |__     /  \  | |  | |
+            ====      \___ \| |  | |  _ <|  _  /|  __|   / /\ \ | |  | |
+              ====    ____) | |__| | |_) | | \ \| |____ / ____ \| |__| |
+        ==========   |_____/ \____/|____/|_|  \_\______/_/    \_\_____/
+	  v1.6.2
+
+//========================== featureCounts setting ===========================\\
+||                                                                            ||
+||             Input files : 15 BAM files                                     ||
+||                           S SRR21013136.bam                                ||
+||                           S SRR21013137.bam                                ||
+||                           S SRR21013138.bam                                ||
+||                           S SRR21013139.bam                                ||
+||                           S SRR21013140.bam                                ||
+||                           S SRR21013141.bam                                ||
+||                           S SRR21013142.bam                                ||
+||                           S SRR21013143.bam                                ||
+||                           S SRR21013144.bam                                ||
+||                           S SRR21013145.bam                                ||
+||                           S SRR21013146.bam                                ||
+||                           S SRR21013147.bam                                ||
+||                           S SRR21013148.bam                                ||
+||                           S SRR21013149.bam                                ||
+||                           S SRR21013150.bam                                ||
+||                                                                            ||
+||             Output file : gene_counts.txt                                  ||
+||                 Summary : gene_counts.txt.summary                          ||
+||              Annotation : E_coli_and_T4_concat.gff (GTF)                   ||
+||      Dir for temp files : /mnt/data/transcriptomica/iperez/proyectofin ... ||
+||                                                                            ||
+||                 Threads : 24                                               ||
+||                   Level : meta-feature level                               ||
+||              Paired-end : no                                               ||
+||      Multimapping reads : not counted                                      ||
+|| Multi-overlapping reads : not counted                                      ||
+||   Min overlapping bases : 1                                                ||
+||                                                                            ||
+\\===================== http://subread.sourceforge.net/ ======================//
+
+//================================= Running ==================================\\
+||                                                                            ||
+|| Load annotation file E_coli_and_T4_concat.gff ...                          ||
+||    Features : 4794                                                         ||
+||    Meta-features : 4794                                                    ||
+||    Chromosomes/contigs : 2                                                 ||
+||                                                                            ||
+|| Process BAM file SRR21013136.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 21361989                                                  ||
+||    Successfully assigned reads : 14161515 (66.3%)                          ||
+||    Running time : 0.03 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013137.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 42760077                                                  ||
+||    Successfully assigned reads : 28228887 (66.0%)                          ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013138.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 40144857                                                  ||
+||    Successfully assigned reads : 28135934 (70.1%)                          ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013139.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 34579747                                                  ||
+||    Successfully assigned reads : 18647700 (53.9%)                          ||
+||    Running time : 0.04 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013140.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 56124931                                                  ||
+||    Successfully assigned reads : 33285025 (59.3%)                          ||
+||    Running time : 0.07 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013141.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 25689718                                                  ||
+||    Successfully assigned reads : 14930629 (58.1%)                          ||
+||    Running time : 0.03 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013142.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 38916380                                                  ||
+||    Successfully assigned reads : 13547665 (34.8%)                          ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013143.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 37969378                                                  ||
+||    Successfully assigned reads : 15881329 (41.8%)                          ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013144.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 22904616                                                  ||
+||    Successfully assigned reads : 7746751 (33.8%)                           ||
+||    Running time : 0.03 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013145.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 32054053                                                  ||
+||    Successfully assigned reads : 616644 (1.9%)                             ||
+||    Running time : 0.04 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013146.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 42235997                                                  ||
+||    Successfully assigned reads : 905166 (2.1%)                             ||
+||    Running time : 0.05 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013147.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 63092961                                                  ||
+||    Successfully assigned reads : 1449364 (2.3%)                            ||
+||    Running time : 0.08 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013148.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 20770687                                                  ||
+||    Successfully assigned reads : 25539 (0.1%)                              ||
+||    Running time : 0.03 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013149.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 48610327                                                  ||
+||    Successfully assigned reads : 8946 (0.0%)                               ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SRR21013150.bam...                                        ||
+||    Single-end reads are included.                                          ||
+||    Strand specific : reversely stranded                                    ||
+||    Assign reads to features...                                             ||
+||    Total reads : 43586794                                                  ||
+||    Successfully assigned reads : 3918 (0.0%)                               ||
+||    Running time : 0.06 minutes                                             ||
+||                                                                            ||
+||                         Read assignment finished.                          ||
+||                                                                            ||
+|| Summary of counting results can be found in file "/mnt/data/transcriptomi  ||
+|| ca/iperez/proyectofinal/exp/featureCounts/gene_counts.txt.summary"         ||
+||                                                                            ||
+\\===================== http://subread.sourceforge.net/ ======================//
+

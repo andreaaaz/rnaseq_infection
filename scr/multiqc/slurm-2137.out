@@ -1,0 +1,71 @@
+=== Verificando / Instalando MultiQC ===
+Requirement already satisfied: multiqc in /home/rsanchez/.local/lib/python3.9/site-packages (1.35)
+Requirement already satisfied: rich-click in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (1.9.8)
+Requirement already satisfied: packaging in /usr/lib/python3.9/site-packages (from multiqc) (20.9)
+Requirement already satisfied: boto3 in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (1.42.97)
+Requirement already satisfied: rich>=10 in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (15.0.0)
+Requirement already satisfied: typeguard>=4 in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (4.5.2)
+Requirement already satisfied: importlib_metadata in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (8.7.1)
+Requirement already satisfied: tqdm in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (4.68.1)
+Requirement already satisfied: spectra>=0.0.10 in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (0.1.0)
+Requirement already satisfied: humanize in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (4.13.0)
+Requirement already satisfied: click in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (8.1.8)
+Requirement already satisfied: jsonschema in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (4.25.1)
+Requirement already satisfied: jinja2>=3.0.0 in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (3.1.6)
+Requirement already satisfied: markdown in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (3.9)
+Requirement already satisfied: pydantic>=2.7.0 in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (2.13.4)
+Requirement already satisfied: pyarrow in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (21.0.0)
+Requirement already satisfied: numpy in /usr/lib64/python3.9/site-packages (from multiqc) (1.23.5)
+Requirement already satisfied: polars[rtcompat]>=1.34.0 in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (1.36.1)
+Requirement already satisfied: natsort in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (8.4.0)
+Requirement already satisfied: kaleido==0.2.1 in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (0.2.1)
+Requirement already satisfied: requests in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (2.32.5)
+Requirement already satisfied: coloredlogs in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (15.0.1)
+Requirement already satisfied: plotly>=5.18 in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (6.8.0)
+Requirement already satisfied: python-dotenv in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (1.2.1)
+Requirement already satisfied: Pillow>=10 in /usr/lib64/python3.9/site-packages (from multiqc) (10.0.1)
+Requirement already satisfied: tiktoken in /home/rsanchez/.local/lib/python3.9/site-packages (from multiqc) (0.13.0)
+Requirement already satisfied: pyyaml>=4 in /usr/lib64/python3.9/site-packages (from multiqc) (5.4.1)
+Requirement already satisfied: MarkupSafe>=2.0 in /home/rsanchez/.local/lib/python3.9/site-packages (from jinja2>=3.0.0->multiqc) (3.0.3)
+Requirement already satisfied: narwhals>=1.15.1 in /home/rsanchez/.local/lib/python3.9/site-packages (from plotly>=5.18->multiqc) (2.21.0)
+Requirement already satisfied: polars-runtime-32==1.36.1 in /home/rsanchez/.local/lib/python3.9/site-packages (from polars[rtcompat]>=1.34.0->multiqc) (1.36.1)
+Requirement already satisfied: polars-runtime-compat==1.36.1 in /home/rsanchez/.local/lib/python3.9/site-packages (from polars[rtcompat]>=1.34.0->multiqc) (1.36.1)
+Requirement already satisfied: typing-inspection>=0.4.2 in /home/rsanchez/.local/lib/python3.9/site-packages (from pydantic>=2.7.0->multiqc) (0.4.2)
+Requirement already satisfied: pydantic-core==2.46.4 in /home/rsanchez/.local/lib/python3.9/site-packages (from pydantic>=2.7.0->multiqc) (2.46.4)
+Requirement already satisfied: typing-extensions>=4.14.1 in /home/rsanchez/.local/lib/python3.9/site-packages (from pydantic>=2.7.0->multiqc) (4.15.0)
+Requirement already satisfied: annotated-types>=0.6.0 in /home/rsanchez/.local/lib/python3.9/site-packages (from pydantic>=2.7.0->multiqc) (0.7.0)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /home/rsanchez/.local/lib/python3.9/site-packages (from rich>=10->multiqc) (3.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/rsanchez/.local/lib/python3.9/site-packages (from rich>=10->multiqc) (2.20.0)
+Requirement already satisfied: colormath2>=3.0.0 in /home/rsanchez/.local/lib/python3.9/site-packages (from spectra>=0.0.10->multiqc) (3.0.3)
+Requirement already satisfied: zipp>=3.20 in /home/rsanchez/.local/lib/python3.9/site-packages (from importlib_metadata->multiqc) (3.23.1)
+Requirement already satisfied: botocore<1.43.0,>=1.42.97 in /home/rsanchez/.local/lib/python3.9/site-packages (from boto3->multiqc) (1.42.97)
+Requirement already satisfied: s3transfer<0.17.0,>=0.16.0 in /home/rsanchez/.local/lib/python3.9/site-packages (from boto3->multiqc) (0.16.1)
+Requirement already satisfied: jmespath<2.0.0,>=0.7.1 in /home/rsanchez/.local/lib/python3.9/site-packages (from boto3->multiqc) (1.1.0)
+Requirement already satisfied: humanfriendly>=9.1 in /home/rsanchez/.local/lib/python3.9/site-packages (from coloredlogs->multiqc) (10.0)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /home/rsanchez/.local/lib/python3.9/site-packages (from jsonschema->multiqc) (2025.9.1)
+Requirement already satisfied: attrs>=22.2.0 in /home/rsanchez/.local/lib/python3.9/site-packages (from jsonschema->multiqc) (26.1.0)
+Requirement already satisfied: rpds-py>=0.7.1 in /home/rsanchez/.local/lib/python3.9/site-packages (from jsonschema->multiqc) (0.27.1)
+Requirement already satisfied: referencing>=0.28.4 in /home/rsanchez/.local/lib/python3.9/site-packages (from jsonschema->multiqc) (0.36.2)
+Requirement already satisfied: pyparsing>=2.0.2 in /usr/lib/python3.9/site-packages (from packaging->multiqc) (2.4.7)
+Requirement already satisfied: charset_normalizer<4,>=2 in /home/rsanchez/.local/lib/python3.9/site-packages (from requests->multiqc) (3.4.7)
+Requirement already satisfied: certifi>=2017.4.17 in /home/rsanchez/.local/lib/python3.9/site-packages (from requests->multiqc) (2026.5.20)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/rsanchez/.local/lib/python3.9/site-packages (from requests->multiqc) (1.26.20)
+Requirement already satisfied: idna<4,>=2.5 in /home/rsanchez/.local/lib/python3.9/site-packages (from requests->multiqc) (3.18)
+Requirement already satisfied: regex in /home/rsanchez/.local/lib/python3.9/site-packages (from tiktoken->multiqc) (2026.1.15)
+Requirement already satisfied: python-dateutil<3.0.0,>=2.1 in /usr/lib/python3.9/site-packages (from botocore<1.43.0,>=1.42.97->boto3->multiqc) (2.9.0.post0)
+Requirement already satisfied: networkx>=2.0 in /home/rsanchez/.local/lib/python3.9/site-packages (from colormath2>=3.0.0->spectra>=0.0.10->multiqc) (3.2.1)
+Requirement already satisfied: mdurl~=0.1 in /home/rsanchez/.local/lib/python3.9/site-packages (from markdown-it-py>=2.2.0->rich>=10->multiqc) (0.1.2)
+Requirement already satisfied: six>=1.5 in /usr/lib/python3.9/site-packages (from python-dateutil<3.0.0,>=2.1->botocore<1.43.0,>=1.42.97->boto3->multiqc) (1.15.0)
+=== Versión de MultiQC ===
+multiqc, version 1.35
+=== Iniciando recopilación de reportes con MultiQC ===
+
+/// MultiQC 🔍 v1.35
+
+       file_search | Search path: /mnt/data/transcriptomica/iperez/proyectofinal/exp/fastqc_results
+            fastqc | Found 15 reports
+     write_results | Existing reports found, adding suffix to filenames. Use '--force' to overwrite.
+     write_results | Data        : /mnt/data/transcriptomica/iperez/proyectofinal/exp/multiqc_report/multiqc_data_1
+     write_results | Report      : /mnt/data/transcriptomica/iperez/proyectofinal/exp/multiqc_report/multiqc_report_1.html
+           multiqc | MultiQC complete
+=== MultiQC finalizado con éxito ===
