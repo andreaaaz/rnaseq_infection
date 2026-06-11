@@ -1,0 +1,180 @@
+---
+title: "Final Proyect"
+author: "Andrea, Itzy, Marco, Reyli"
+date: "2026-06-10"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# Análisis de RNA-seq de la actividad de el bacteriofago T4 durante la infección de de *E.coli*
+
+## Descripción de los datos
+
+Los datos de RNA-seq analizados en este proyecto provienen del bioproyecto **PRJNA868713**, depositado en la base de datos GEO bajo la accesión **GSE211026**. El organismo de estudio es *Escherichia coli*, por lo que no aplica una clasificación por tejido o tipo celular. Este conjunto de datos fue generado por Wolfram-Schauerte et al. (2022) en el marco de un estudio Omics Reveal Time-Resolved Insights into T4 Phage Infection of E. coli on Proteome and Transcriptome Levels. La secuenciación se llevó a cabo mediante la plataforma Illumina NextSeq 500.
+
+Para el diseño experimental se compraron bacterias de *E.coli* no infectadas vs. bascterias infectadas con bacteriofagos T4 a distintos tiempos post-infección. Se generaron 15 trancriptomas de los cuales se distribuyeron en las siguientes condiciones:
+
+Control:
+
+-   Sin infección (3 réplicas biológicas)
+
+Tratamiento:
+
+-   1 minuto post-infección (3 réplicas biológicas)
+
+-   4 minutos post-infección (3 réplicas biológicas)
+
+-   7 minutos post-infección (3 réplicas biológicas)
+
+-   20 minutos post-infección (3 réplicas biológicas)
+
+El tipo de biblioteca empleada para el análisis fue single-end stranded preparadas con NEBNext Ultra II Directional RNA Library Prep Kit. El método de selección fue por medio de la depleción de ARN ribosomal con el Ribo-Zero rRNA Removal Kit
+
+|                                    |                             |                    |
+|------------------------------|------------------------|------------------|
+| **Muestra (SRA)**                  | **Total de lecturas/spots** | **Total de bases** |
+| Control #1 (SRX17029630)           | 42,621,366                  | 3.6G               |
+| Control #2 (SRX17029631)           | 48,480,375                  | 4.1G               |
+| Control #3 (SRX17029632)           | 21,368,613                  | 1.8G               |
+| Tratamiento 1 min #1 (SRX17029633) | 60,097,710                  | 5.1G               |
+| Tratamiento 1 min #2 (SRX17029634) | 42,992,392                  | 3.7G               |
+| Tratamiento 1 min #3 (SRX17029635) | 31,918,467                  | 2.7G               |
+| Tratamiento 4 min #1 (SRX17029636) | 22,056,268                  | 1.9G               |
+| Tratamiento 4 min #2 (SRX17029637) | 37,981,874                  | 3.2G               |
+
+: Table 1: Profundidad de secuenciación de cada transcriptoma
+
+## Resumen
+
+Este estudio evaluó la dinámica transcripcional de la infección del bacteriófago T4 sobre *Escherichia coli* a través de una cinética temporal de seis contrastes (0, 1, 4, 7 y 20 minutos post-infección). Se analizaron datos de secuenciación de ARN masivo (**bulk RNA-seq**) mediante la tecnología Illumina. El procesamiento bioinformático se realizó en R con el paquete `DESeq2` para cuantificar la expresión diferencial de genes (DEGs) virales y bacterianos. El análisis de enriquecimiento funcional se realizó con la herramienta de GO para analizar las rutas biológicas y metabólicas.
+
+Los resultados revelaron un secuestro transcripcional cronológico. A los 4 minutos, el fago exhibió una sobreexpresión explosiva de sus genes mientras *E. coli* deprimió significativamente su expresión macromolecular y activó el catabolismo de pirimidinas para el reciclaje de nucleótidos virales. Hacia el minuto 20, el mapa de calor confirmó el encendido exclusivo de ondas génicas tardías del fago asociadas al ensamblaje, mientras que el perfil adaptativo de la bacteria colapsó, mostrando un enriquecimiento único y estadísticamente significativo en vías de muerte celular programada y lisis inminente.
+
+## Resultados
+
+### Calidad de las secuencias
+
+Para el análisis de calidad de los 15 transcriptomas se usó la herramienta fastqc v. 0.11.3 y Multiqc v. 1.35 de los cuales obtuvimos los siguientes resultados
+
+| Sample Name   | Dups  | GC    | Seqs  |
+|---------------|-------|-------|-------|
+| SRR21013136_1 | 88.7% | 41.0% | 21.2M |
+| SRR21013137_1 | 90.2% | 41.0% | 43.6M |
+| SRR21013138_1 | 90.2% | 41.0% | 40.3M |
+| SRR21013139_1 | 88.8% | 42.0% | 34.7M |
+| SRR21013140_1 | 90.1% | 41.0% | 57.2M |
+| SRR21013141_1 | 87.6% | 40.0% | 24.2M |
+| SRR21013142_1 | 87.1% | 45.0% | 38.2M |
+| SRR21013143_1 | 87.1% | 44.0% | 38.0M |
+| SRR21013144_1 | 79.3% | 45.0% | 22.1M |
+| SRR21013145_1 | 83.8% | 51.0% | 31.9M |
+| SRR21013146_1 | 84.9% | 52.0% | 43.0M |
+| SRR21013147_1 | 86.2% | 52.0% | 60.1M |
+| SRR21013148_1 | 81.2% | 52.0% | 21.4M |
+| SRR21013149_1 | 85.3% | 52.0% | 48.5M |
+| SRR21013150_1 | 85.3% | 52.0% | 42.6M |
+
+: Table 2. Calidad de secuenciación de las lecturas
+
+Además se observó que aún se conservaban los adaptadores para cada uno de los 15 transcriptomas![](fastqc_adapter_content_plot.png)
+
+La limpieza de los datos se realizó con `cutadapt` (v5.2) para eliminar las secuencias del adaptador Illumina TruSeq (GATCGGAAGAGCACACGTCTGAACTCCAGTCAC) introducidas en el extremo 3' (`-a`). Durante este proceso, se implementó un filtrado por calidad (`-q 20`) y un recorte por longitud mínima (`-m 35`), asegurando transcriptomas limpios y libres de contaminación técnica. Como resultado directo de este control de calidad, se observó una reducción controlada en el tamaño promedio de las secuencias remanentes.
+
+| Sample Name | Dups  | GC    | Seqs  |
+|-------------|-------|-------|-------|
+| SRR21013136 | 87.5% | 40.0% | 19.5M |
+| SRR21013137 | 88.8% | 41.0% | 40.5M |
+| SRR21013138 | 89.1% | 40.0% | 39.1M |
+| SRR21013139 | 87.4% | 41.0% | 32.0M |
+| SRR21013140 | 89.1% | 40.0% | 54.3M |
+| SRR21013141 | 87.0% | 40.0% | 24.2M |
+| SRR21013142 | 85.4% | 44.0% | 35.4M |
+| SRR21013143 | 85.7% | 43.0% | 36.0M |
+| SRR21013144 | 79.0% | 45.0% | 22.1M |
+| SRR21013145 | 82.2% | 52.0% | 29.9M |
+| SRR21013146 | 83.9% | 52.0% | 40.5M |
+| SRR21013147 | 85.4% | 52.0% | 58.8M |
+| SRR21013148 | 79.2% | 52.0% | 20.0M |
+| SRR21013149 | 84.3% | 52.0% | 46.6M |
+| SRR21013150 | 84.5% | 52.0% | 42.0M |
+
+: Table 3. Calidad de secuenciación de las lecturas después de remover los adaptadores
+
+### Alineamiento
+
+El alineamiento de las lecturas se realizó mediante el software `HISAT2` (v2.2.1) bajo la modalidad de lecturas únicas (*Single-End*). Como estrategia bioinformática para evitar sesgos de mapeo cruzado, se concatenaron previamente las secuencias genómicas de *Escherichia coli* y el bacteriófago T4 en un archivo FASTA híbrido, sobre el cual se construyeron los índices genómicos utilizando el comando `hisat2-build`. Posteriormente, cada archivo de lecturas limpias fue procesado con `HISAT2`, empleando el parámetro por defecto para el reporte de alineamientos válidos y redirigiendo la salida estándar. Mediante el uso de `samtools` (v1.20), los archivos de texto SAM resultantes se convirtieron a formato binario compacto BAM (`samtools view -bS`), se ordenaron por coordenadas genómicas (`samtools sort`) y se indexaron (`samtools index`) para generar los archivos `.bai`. Este flujo permitió estructurar los datos de manera óptima para la posterior cuantificación de la expresión génica. La Table 4 muestra los porcentajes de alineamiento global obtenidos frente al genoma concatenado:
+
+| Sample Name | Porcentaje de lecturas alineadas |
+|-------------|----------------------------------|
+| SRR21013136 | 97.64%                           |
+| SRR21013137 | 97.60%                           |
+| SRR21013138 | 97.47%                           |
+| SRR21013139 | 96.96%                           |
+| SRR21013140 | 97.07%                           |
+| SRR21013141 | 97.16%                           |
+| SRR21013142 | 96.36%                           |
+| SRR21013143 | 96.46%                           |
+| SRR21013144 | 95.35%                           |
+| SRR21013145 | 95.28%                           |
+| SRR21013146 | 94.92%                           |
+| SRR21013147 | 95.28%                           |
+| SRR21013148 | 95.00%                           |
+| SRR21013149 | 95.05%                           |
+| SRR21013150 | 95.34%                           |
+
+: Table 4. Porcentaje de lecturas alineadas
+
+### Predicción de cuentas
+
+La cuantificación de los niveles de expresión génica se llevó a cabo utilizando la herramienta `featureCounts` integrada en el paquete `Subread` (v1.6.2). Los archivos de alineamiento en formato `.bam` se contrastaron contra el archivo de anotación GFF híbrido (correspondiente al genoma concatenado), empleando el parámetro `-t gene` para definir la característica genómica a cuantificar y `-g gene_id` para colapsar las lecturas a nivel de identificador de gen. Al tratarse de una biblioteca de lecturas únicas (*Single-End*), el conteo se realizó considerando asignaciones a nivel de lectura individual. Este procedimiento permitió estructurar de manera robusta la matriz de conteos crudos con la abundancia transcripcional de cada gen para el hospedero y el fago simultáneamente
+
+### Expresión diferencial
+
+Para descartar un posible efecto de lote se corrió una análisis de componentes principales. Como puedes observar, los puntos del mismo color se agrupan muy cerca entre sí (especialmente en los tiempos de 1, 7 y 20 minutos). Esto indica una excelente consistencia experimental: el ruido técnico es mínimo y las diferencias que estás observando se deben genuinamente a la progresión del tiempo de infección del fago T4 sobre *E. coli*.
+
+![](images/PCA.png)
+
+### Umap
+
+Como se muestra en la proyección UMAP generada a partir de los componentes principales (PCA), las muestras se distribuyen claramente en dos grandes clústeres. El primero, ubicado en la parte superior derecha, agrupa de manera compacta las condiciones de control no infectadas y las fases iniciales de la infección correspondientes al minuto 1. En contraste, el clúster posicionado en la región inferior derecha congrega los estadios de la infección a los 4, 7 y 20 minutos. Esta separación macroscópica guarda una estrecha congruencia biológica, ya que documenta la transición drástica en el perfil transcriptómico global del hospedero a partir del minuto 4, momento en el cual el fago T4 desactiva y secuestra activamente la maquinaria celular de *Escherichia coli*.
+
+![](images/Screenshot from 2026-06-10 23-12-09.png)
+
+### Heatmaps y Volcano Plots
+
+Para evaluar la dinámica transcripcional del bacteriófago T4 durante el curso de la infección en Escherichia coli, se realizó un análisis de expresión diferencial usando la herramienta DESeq2 evaluando transiciones temporales específicas. El filtrado de los 50 genes diferencialmente expresados (DEGs) más significativos en el contraste de 20 min vs. 1 min)en *E. coli* y en el fago T4.
+
+![](images/Heatmap_Ecoli.png)
+
+![](images/Heatmap_Fago-01.png)
+
+En el fago, se observa una activación transcripcional masiva, coordinada y unidireccional de prácticamente todo su genoma, destacando la expresión ultra-significativa de genes tardíos (como `T4p024`, `T4p025` y `T4p055`) y que se confirma su actividad tardía en el heatmap, estos se mantienen apagados durante las fases tempranas para encenderse de forma exclusiva en el minuto 20.
+
+![](images/Volcano_Fago.png)
+
+Por el contrario, la bacteria hospeda exhibe una supresión casi absoluta de su respuesta transcripcional activa, caracterizada por una pérdida generalizada de la significancia de sus genes frente a fases previas y la caída drástica de transcritos clave como `b0327;`de manera simultánea, el remanente de genes bacterianos significativos muestra una activación orientada únicamente hacia un bloque específico liderado por `b4408`, lo que refleja un estado de estrés celular terminal donde la maquinaria de *E. coli* ha sido totalmente redirigida a sostener la producción de viriones y los preparativos para la lisis celular.
+
+![](images/Volcano_Ecoli-01.png)
+
+### Análisis de Enriquecimiento
+
+![](images/GO_Ecoli.png)
+
+En el análisis de enrequecimiento en el minuto 20, podemos observar que el fago ya ha sintetizado cientos de copias de su propio genoma y ha ensamblado las cápsides virales. Para liberar los nuevos viriones al exterior, el fago activa proteínas específicas (holinas y lisozimas) que desestabilizan la membrana interna y degradan el peptidoglicano de la pared celular. La detección significativa de programmed cell death y cell death refleja que la maquinaria de *E. coli* está experimentando los eventos bioquímicos previos a la lisis celular.
+
+## Discusión
+
+El análisis comparativo frente al estudio de referencia valida metodológicamente nuestro pipeline al replicar de forma consistente la parálisis transcripcional del hospedero y el posterior encendido coordinado del virión. Al sustentar estos hallazgos con la revisión actualizada de Rao y Kutter (2025) y los datos multi-ómicos de Wolfram-Schauerte et al. (2022), se evidencia cómo el fago T4 ejecuta un secuestro molecular altamente controlado a lo largo de su ciclo lítico. En la transición temprana (minuto 4), factores de adquisición organizados en cascada modifican la especificidad de la ARN polimerasa de *Escherichia coli* para redirigirla hacia los promotores medios del virus. Simultáneamente, nucleasas fágicas como RegB inician una degradación masiva del transcriptoma bacteriano. Este fenómeno se alinea directamente con lo reportado históricamente por Ueno y Yonesaki (2004), quienes demostraron que T4 induce una desestabilización drástica de los ARNm bacterianos estables, reduciendo severamente sus vidas medias ; un comportamiento que nuestro pipeline corrobora a escala global mediante la caída simétrica de la gran mayoría de los transcritos del hospedero al minuto 4. Este vaciado transcriptómico explica el enriquecimiento observado en las vías de reciclaje de pirimidinas, donde el fago destruye el ARN celular para liberar los bloques de construcción necesarios para su propia replicación.
+
+Hacia el minuto 20, el encendido exclusivo de los genes tardíos del fago ---controlado por el factor sigma secundario gp55 y sus coactivadores--- marca el clímax del empaquetamiento de ADN y el autoensamblaje de la cápside. Curiosamente, Wolfram-Schauerte et al. (2022) demostraron que mientras el transcriptoma de *E. coli* es destruido casi en su totalidad, su proteoma permanece sorprendentemente estable debido a que T4 preserva intacta la maquinaria traduccional del hospedero para sostener la síntesis de sus propias proteínas estructurales. De este modo, el remanente de activación bacteriana detectado en el Volcano Plot (liderado por genes como `b4408`) y la significancia única de los términos GO de muerte celular reflejan el colapso y la respuesta terminal de estrés físico ante la acumulación de holinas virales justo antes de la lisis irreversible.
+
+## Referencias
+
+Chevallereau, A.; Pons, B.J.; van Houte, S.; Westra, E.R. Interactions between bacterial and phage communities in natural environments. Nat. Rev. Microbiol. 2022, 20, 49--62.
+
+Rao, Venigalla, y Elizabeth Kutter. 2025. "The World of Bacteriophage T4: Seven Decades of Discovery." *EcoSal Plus* 11 (1): esp-0006-2025.
+
+Ueno, H.; Yonesaki, T. Phage-induced change in the stability of mRNAs. Virology 2004, 329, 134--141.
+
+Wolfram-Schauerte, Maik, Nadiia Pozhydaieva, Madita Viering, Timo Glatter, and Katharina Höfer. 2022. "Integrated Omics Reveal Time-Resolved Insights into T4 Phage Infection of *E. coli* on Proteome and Transcriptome Levels" *Viruses* 14, no. 11: 2502
