@@ -1,0 +1,16 @@
+sample_id,condition,time,phage
+SRR21013136,infected,20min,T4
+SRR21013137,infected,20min,T4
+SRR21013138,infected,20min,T4
+SRR21013139,infected,7min,T4
+SRR21013140,infected,7min,T4
+SRR21013141,infected,7min,T4
+SRR21013142,infected,4min,T4
+SRR21013143,infected,4min,T4
+SRR21013144,infected,4min,T4
+SRR21013145,infected,1min,T4
+SRR21013146,infected,1min,T4
+SRR21013147,infected,1min,T4
+SRR21013148,uninfected,0min,none
+SRR21013149,uninfected,0min,none
+SRR21013150,uninfected,0min,none
